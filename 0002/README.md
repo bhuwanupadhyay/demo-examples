@@ -1,18 +1,22 @@
-# Kind Cluster with Nginx Ingress Controller
+# Automatic Reload ConfigMap for Microservices in Kubernetes
 
-## Create Kind Cluster
+## Section 0: Kind Cluster
+
+> You can skip this section if you have already cluster and you don't want create local kind cluster.
+
+### Create Kind Cluster
 
 ```bash
- kind create cluster --name c1 --config kind-cluster.yaml 
+ kind create cluster --name c1 --config kind-c1-config.yaml 
 ```
 
-## Use Kind Cluster k8s Context
+### Use Kind Cluster k8s Context
 
 ```bash
 kubectl config use-context kind-c1
 ```
 
-## Install MetalLB on Kind
+### Install MetalLB on Kind
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
@@ -55,8 +59,4 @@ data:
 EOF
 ```
 
-## Delete Kind Cluster
-
-```bash
-kind delete cluster --name c1
-```
+##
