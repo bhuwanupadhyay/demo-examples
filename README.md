@@ -1,1 +1,1 @@
-# Various Demo Examples for Blog: [bhuwanupadhyay.com](bhuwanupadhyay.com)
+# Demo Examples for Blog: [www.bhuwanupadhyay.com](https://www.bhuwanupadhyay.com)
