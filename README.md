@@ -1,2 +1,1 @@
-# spring-boot-microservices
-Spring Boot Microservices
+# Various Demo Examples for Blog [bhuwanupadhyay.com]
