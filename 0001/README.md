@@ -3,7 +3,13 @@
 ## Create Kind Cluster
 
 ```bash
- kind create cluster --name c1 --config kind-cluster.yaml 
+kind create cluster --name c1 --config kind-cluster.yaml 
+```
+
+## To see cluster info
+
+```bash
+kubectl cluster-info --context kind-c1
 ```
 
 ## Use Kind Cluster k8s Context
@@ -23,7 +29,7 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 ```
 
 ```bash
- kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
 ```
 
 ```bash
