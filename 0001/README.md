@@ -6,59 +6,32 @@
 kind create cluster --name c1 --config kind-cluster.yaml 
 ```
 
-## To see cluster info
+## Install LoadBalancer
+
+<https://kind.sigs.k8s.io/docs/user/loadbalancer/>
+
+## Install Nginx Ingress Controller
 
 ```bash
-kubectl cluster-info --context kind-c1
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace
 ```
 
-## Use Kind Cluster k8s Context
+## Expose Application behind Nginx Ingress Controller
+
+Deploy application
 
 ```bash
-kubectl config use-context kind-c1
+kubectl apply -f foo-bar.yaml
 ```
 
-## Install MetalLB on Kind
+Verify application
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
-```
+curl -v -H "Host:foo-bar.kind.local" http://172.19.255.200/foo
 
-```bash
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-```
-
-```bash
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
-```
-
-```bash
-kubectl get pod -n metallb-system
-```
-
-```bash
-docker network inspect -f '{{.IPAM.Config}}' kind
-```
-
-Output Example: `[{172.18.0.0/16  172.18.0.1 map[]} {fc00:f853:ccd:e793::/64   map[]}]`
-
-Here address pool for kind is `172.18.0.0/16`, consider if you want to configure 30 IPs starting from `172.18.255.200`. Then,
-
-```bash
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - 172.18.255.200-172.18.255.230
-EOF
+curl -v -H "Host:foo-bar.kind.local" http://172.19.255.200/bar
 ```
 
 ## Delete Kind Cluster
@@ -66,3 +39,6 @@ EOF
 ```bash
 kind delete cluster --name c1
 ```
+
+# References
+- https://kind.sigs.k8s.io/docs/user/loadbalancer/
