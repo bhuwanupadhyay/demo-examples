@@ -22,14 +22,4 @@ nodes:
         node-labels: "node=worker_2"
   extraMounts:
     - hostPath: ./build/data
-      containerPath: /tmp/data 
-- role: worker
-  kubeadmConfigPatches:
-  - |
-    kind: JoinConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "node=worker_3"
-  extraMounts:
-    - hostPath: ./build/data
       containerPath: /tmp/data
