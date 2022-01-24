@@ -23,6 +23,3 @@ nodes:
         nodeRegistration:
           kubeletExtraArgs:
             node-labels: "node=worker_1"
-    extraMounts:
-      - hostPath: ./build/data
-        containerPath: /tmp/data
